@@ -1,0 +1,33 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+
+env:
+  - CAKE_VERSION=2.3.10
+  - CAKE_VERSION=2.4.10
+  - CAKE_VERSION=2.5.4
+
+matrix:
+ fast_finish: true
+
+before_script:
+  - cd .. && git clone git://github.com/cakephp/cakephp cakephp && cd cakephp && git checkout $CAKE_VERSION
+  - chmod -R 777 app/tmp && cd ..
+  - mkdir cakephp/app/Plugin/Environment && cp -r cakephp-environment/* cakephp/app/Plugin/Environment
+  - mkdir cakephp/app/Config/Environment && cp -r cakephp-environment/example/app/Config/Environment/* cakephp/app/Config/Environment
+  - cp cakephp/app/Config/Environment/environment.local.php.default cakephp/app/Config/Environment/environment.local.php
+  - composer global require 'phpunit/phpunit=3.7.33'
+  - ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./cakephp/vendors/PHPUnit
+  - cd cakephp/app
+  - chmod 755 ./Console/cake
+
+script:
+  - ./Console/cake test Environment AllEnvironmentTests --stderr
+
+notifications:
+  irc: "irc.freenode.org#wasabi"
+  email: false
