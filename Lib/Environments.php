@@ -161,9 +161,19 @@ class Environments {
 				throw new Exception('Environment configuration for "' . $environment . '" could not be found.');
 			}
 		}
-		// If no manual setting is available, use host to decide which config to use.
+		// If no manual setting is available, use "host:port" to decide which config to use.
 		if ($environment === null && !empty($_SERVER['HTTP_HOST'])) {
 			$host = (string) $_SERVER['HTTP_HOST'];
+			foreach ($this->_environments as $env => $envConfig) {
+				if (isset($envConfig['domain']) && in_array($host, $envConfig['domain'])) {
+					$environment = $env;
+					break;
+				}
+			}
+		}
+		// If there is no host:port match, try "host" only.
+		if ($environment === null && !empty($_SERVER['SERVER_NAME'])) {
+			$host = (string) $_SERVER['SERVER_NAME'];
 			foreach ($this->_environments as $env => $envConfig) {
 				if (isset($envConfig['domain']) && in_array($host, $envConfig['domain'])) {
 					$environment = $env;
