@@ -15,7 +15,9 @@ App::uses('BaseDatabaseConfig', 'Environment.Lib');
 if (!defined('HTTP_HOST')) {
 	define('HTTP_HOST', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost');
 }
-define('IS_CLI', php_sapi_name() === 'cli' && empty($_SERVER['REMOTE_ADDR']));
+if (!defined('IS_CLI')) {
+	define('IS_CLI', php_sapi_name() === 'cli' && empty($_SERVER['REMOTE_ADDR']));
+}
 
 /**
  * Class BaseDatabaseConfigTest
