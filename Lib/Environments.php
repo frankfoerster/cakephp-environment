@@ -1,7 +1,28 @@
 <?php
-
+/**
+ * Copyright (c) Frank Förster (http://frankfoerster.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Frank Förster (http://frankfoerster.com)
+ * @author Frank Förster <frank at frankfoerster.com>
+ * @link https://github.com/frankfoerster/cakephp-environment CakePHP Environment Plugin
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 App::uses('Configure', 'Core');
 
+/**
+ * Evironment Loader
+ *
+ * Load the environment configuration for the current request (based on domain) from
+ * APP/Config/Environment/environment.xxx.php where xxx is the environment name.
+ *
+ * It will automatically set the $default property of the app's database and email configuration
+ * depending on the detected environment.
+ *
+ * In addition all $configure settings from the environment config will be applied via Configure::write($configure).
+ */
 class Environments {
 
 	/**
@@ -27,6 +48,14 @@ class Environments {
 	protected $_dbConfig = array();
 
 	/**
+	 * Holds a single or multiple email configs indexed by their
+	 * environment name.
+	 *
+	 * @var array
+	 */
+	protected $_emailConfig = array();
+
+	/**
 	 * The absolute path to the environment configuration directory
 	 * without trailing slash.
 	 *
@@ -49,10 +78,10 @@ class Environments {
 	protected static $_instance = null;
 
 	/**
-	 * Private Constructor
-	 * (Singleton Pattern)
+	 * Constructor
+	 * Setup the environment path.
 	 */
-	private function __construct() {
+	public function __construct() {
 		$this->_envPath = APP . 'Config' . DS . 'Environment';
 	}
 
@@ -111,6 +140,19 @@ class Environments {
 	}
 
 	/**
+	 * Get the default email config for the current environment.
+	 *
+	 * @return array
+	 */
+	public static function getEnvironmentEmailConfig() {
+		$instance = self::getInstance();
+		if ($instance->_current === null || !isset($instance->_emailConfig[$instance->_current])) {
+			return array();
+		}
+		return $instance->_emailConfig[$instance->_current];
+	}
+
+	/**
 	 * Get the current environment name.
 	 *
 	 * @return null|string
@@ -137,6 +179,10 @@ class Environments {
 
 			if (isset($dbConfig) && is_array($dbConfig) && !empty($dbConfig)) {
 				$this->_dbConfig[$this->_current] = $dbConfig;
+			}
+
+			if (isset($emailConfig) && is_array($emailConfig) && !empty($emailConfig)) {
+				$this->_emailConfig[$this->_current] = $emailConfig;
 			}
 
 			if (isset($availableEnvironments) && empty($this->_environments)) {
