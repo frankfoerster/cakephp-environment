@@ -9,7 +9,8 @@ php:
 env:
   - CAKE_VERSION=2.3.10
   - CAKE_VERSION=2.4.10
-  - CAKE_VERSION=2.5.4
+  - CAKE_VERSION=2.5.8
+  - CAKE_VERSION=2.6.2
 
 matrix:
  fast_finish: true
