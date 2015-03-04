@@ -1,18 +1,29 @@
 <?php
 /**
-* Database Base Config
-*
-* You should define both `environment` and `path` to be able to switch
-* dynamically in CLI mode and normal frontend mode.
-* You can manually switch to a specific environment using Configure::write('Environment.current').
-*
-* It also automatically sets the test environment based on the default settings:
-* If no `test` config is set it will use the default settings except for prefix.
-* You can also define some custom settings and if `merge` is set to `true` in your test config
-* it will then merge with `default` afterwards.
-*/
+ * Copyright (c) Frank Förster (http://frankfoerster.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Frank Förster (http://frankfoerster.com)
+ * @author Frank Förster <frank at frankfoerster.com>
+ * @link https://github.com/frankfoerster/cakephp-environment CakePHP Environment Plugin
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 App::uses('Environments', 'Environment.Lib');
 
+/**
+ * Database Base Config
+ *
+ * You should define both `environment` and `path` to be able to switch
+ * dynamically in CLI mode and normal frontend mode.
+ * You can manually switch to a specific environment using Configure::write('Environment.current').
+ *
+ * It also automatically sets the test environment based on the default settings:
+ * If no `test` config is set it will use the default settings except for prefix.
+ * You can also define some custom settings and if `merge` is set to `true` in your test config
+ * it will then merge with `default` afterwards.
+ */
 class BaseDatabaseConfig {
 
 	/**

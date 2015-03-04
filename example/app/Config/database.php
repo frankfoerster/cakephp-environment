@@ -1,6 +1,20 @@
 <?php
+/**
+ * Copyright (c) Frank Förster (http://frankfoerster.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Frank Förster (http://frankfoerster.com)
+ * @author Frank Förster <frank at frankfoerster.com>
+ * @link https://github.com/frankfoerster/cakephp-environment CakePHP Environment Plugin
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 App::uses('BaseDatabaseConfig', 'Environment.Lib');
 
+/**
+ * Database Configuration Class
+ */
 class DATABASE_CONFIG extends BaseDatabaseConfig {
 
 	/**
@@ -8,7 +22,6 @@ class DATABASE_CONFIG extends BaseDatabaseConfig {
 	 * Each individual environment $dbConfig like environment.live.php will be merged with $default.
 	 *
 	 * @var array
-	 * @see EnhancedMysql
 	 */
 	public $default = array(
 		'datasource' => 'Database/Mysql',

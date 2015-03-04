@@ -1,10 +1,25 @@
 <?php
+/**
+ * Copyright (c) Frank Förster (http://frankfoerster.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright (c) Frank Förster (http://frankfoerster.com)
+ * @author Frank Förster <frank at frankfoerster.com>
+ * @link https://github.com/frankfoerster/cakephp-environment CakePHP Environment Plugin
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 App::uses('BaseDatabaseConfig', 'Environment.Lib');
+
 if (!defined('HTTP_HOST')) {
 	define('HTTP_HOST', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost');
 }
 define('IS_CLI', php_sapi_name() === 'cli' && empty($_SERVER['REMOTE_ADDR']));
 
+/**
+ * Class BaseDatabaseConfigTest
+ */
 class BaseDatabaseConfigTest extends CakeTestCase {
 
 	/**
