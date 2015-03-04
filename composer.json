@@ -1,0 +1,22 @@
+{
+  "name": "frankfoerster/cakephp-environment",
+  "description": "CakePHP Environment Plugin. Manage multiple environments in your CakePHP application that differ in database setup, configuration settings (Configure) and custom feature flags.",
+  "type": "cakephp-plugin",
+  "keywords": ["cakephp", "environment", "configuration", "configure", "config", "setup", "database"],
+  "homepage": "https://github.com/frankfoerster/cakephp-environment",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Frank Förster",
+      "homepage": "http://frankfoerster.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "composer/installers": "*"
+  },
+  "extra": {
+    "installer-name": "Environment"
+  }
+}
