@@ -24,51 +24,54 @@ App::uses('Environments', 'Environment.Lib');
  * You can also define some custom settings and if `merge` is set to `true` in your test config
  * it will then merge with `default` afterwards.
  */
-class BaseEmailConfig {
+class BaseEmailConfig
+{
 
-	/**
-	 * These are the default db config settings.
-	 * All other db configs are merged with it.
-	 *
-	 * @var array
-	 */
-	protected $_defaults = array(
-		'charset' => 'utf-8',
-		'headerCharset' => 'utf-8',
-		'timeout' => 30
-	);
+    /**
+     * These are the default db config settings.
+     * All other db configs are merged with it.
+     *
+     * @var array
+     */
+    protected $_defaults = array(
+        'charset' => 'utf-8',
+        'headerCharset' => 'utf-8',
+        'timeout' => 30
+    );
 
-	/**
-	 * Holds the default email config.
-	 *
-	 * @var array
-	 */
-	public $default = array();
+    /**
+     * Holds the default email config.
+     *
+     * @var array
+     */
+    public $default = array();
 
-	/**
-	 * Switch between local and live site(s) automatically by domain
-	 * or manually by Configure::read('Environment.current').
-	 */
-	public function __construct() {
-		$this->default = array_merge($this->_defaults, $this->default);
-		$this->default = array_merge($this->default, Environments::getEnvironmentEmailConfig());
+    /**
+     * Switch between local and live site(s) automatically by domain
+     * or manually by Configure::read('Environment.current').
+     */
+    public function __construct()
+    {
+        $this->default = array_merge($this->_defaults, $this->default);
+        $this->default = array_merge($this->default, Environments::getEnvironmentEmailConfig());
 
-		if (!isset($this->test)) {
-			$this->test = $this->default;
-		}
-		if (!empty($this->test['merge'])) {
-			$this->test = array_merge($this->default, $this->test);
-			unset($this->test['merge']);
-		}
-	}
+        if (!isset($this->test)) {
+            $this->test = $this->default;
+        }
+        if (!empty($this->test['merge'])) {
+            $this->test = array_merge($this->default, $this->test);
+            unset($this->test['merge']);
+        }
+    }
 
-	/**
-	 * Get the current email configuration.
-	 *
-	 * @return array
-	 */
-	public function current() {
-		return $this->default;
-	}
+    /**
+     * Get the current email configuration.
+     *
+     * @return array
+     */
+    public function current()
+    {
+        return $this->default;
+    }
 
 }

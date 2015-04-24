@@ -15,17 +15,18 @@ App::uses('BaseEmailConfig', 'Environment.Lib');
 /**
  * Email Configuration Class
  */
-class EmailConfig extends BaseEmailConfig {
+class EmailConfig extends BaseEmailConfig
+{
 
-	/**
-	 * These default settings are used for every Email config.
-	 * Each individual environment $emailConfig will be merged with $default.
-	 *
-	 * @var array
-	 */
-	public $default = array(
-		'charset' => 'utf-8',
-		'headerCharset' => 'utf-8'
-	);
+    /**
+     * These default settings are used for every Email config.
+     * Each individual environment $emailConfig will be merged with $default.
+     *
+     * @var array
+     */
+    public $default = array(
+        'charset' => 'utf-8',
+        'headerCharset' => 'utf-8'
+    );
 
 }

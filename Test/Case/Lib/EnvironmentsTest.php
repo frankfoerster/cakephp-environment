@@ -17,131 +17,148 @@ App::uses('Environments', 'Environment.Lib');
  *
  * Wraps the Environments Lib functionality for testing purposes.
  */
-class EnvironmentsTestWrapper extends Environments {
+class EnvironmentsTestWrapper extends Environments
+{
 
-	public static function getEnvPath() {
-		$instance = self::getInstance();
-		return $instance->_envPath;
-	}
+    public static function getEnvPath()
+    {
+        $instance = self::getInstance();
+        return $instance->_envPath;
+    }
 
-	public static function getEnvironment() {
-		$instance = self::getInstance();
-		return $instance->_getEnvironment();
-	}
+    public static function getEnvironment()
+    {
+        $instance = self::getInstance();
+        return $instance->_getEnvironment();
+    }
 
-	public static function prepareTestEnvironments() {
-		$instance = self::getInstance();
-		$instance->_environments = array(
-			'test' => array(
-				'key' => 'val'
-			),
-			'testing' => array(
-				'domain' => array(
-					'test.com'
-				),
-				'path' => array(
-					APP
-				)
-			)
-		);
-	}
+    public static function prepareTestEnvironments()
+    {
+        $instance = self::getInstance();
+        $instance->_environments = array(
+            'test' => array(
+                'key' => 'val'
+            ),
+            'testing' => array(
+                'domain' => array(
+                    'test.com'
+                ),
+                'path' => array(
+                    APP
+                )
+            )
+        );
+    }
 
-	public static function getDbConfig($env) {
-		self::prepareTestEnvironments();
-		self::$forceEnvironment = $env;
-		$instance = self::getInstance();
-		$instance->_current = $env;
-		$instance->_dbConfig[$env] = array(
-			'testKey' => 'testVal'
-		);
-		return self::getEnvironmentDbConfig();
-	}
+    public static function getDbConfig($env)
+    {
+        self::prepareTestEnvironments();
+        self::$forceEnvironment = $env;
+        $instance = self::getInstance();
+        $instance->_current = $env;
+        $instance->_dbConfig[$env] = array(
+            'testKey' => 'testVal'
+        );
+        return self::getEnvironmentDbConfig();
+    }
 
-	public static function setEnv($env) {
-		$instance = self::getInstance();
-		$instance->_current = $env;
-	}
+    public static function setEnv($env)
+    {
+        $instance = self::getInstance();
+        $instance->_current = $env;
+    }
 
 }
 
 /**
  * Class EnvironmentsTest
  */
-class EnvironmentsTest extends CakeTestCase {
+class EnvironmentsTest extends CakeTestCase
+{
 
-	public function setUp() {
+    public function setUp()
+    {
 
-		parent::setUp();
-	}
+        parent::setUp();
+    }
 
-	public function tearDown() {
-		Environments::tearDown();
+    public function tearDown()
+    {
+        Environments::tearDown();
 
-		parent::tearDown();
-	}
+        parent::tearDown();
+    }
 
-	public function testConstruct() {
-		$this->assertEquals(APP . 'Config' . DS . 'Environment', EnvironmentsTestWrapper::getEnvPath());
-	}
+    public function testConstruct()
+    {
+        $this->assertEquals(APP . 'Config' . DS . 'Environment', EnvironmentsTestWrapper::getEnvPath());
+    }
 
-	public function testGetInstance() {
-		$this->assertInstanceOf('Environments', Environments::getInstance());
-	}
+    public function testGetInstance()
+    {
+        $this->assertInstanceOf('Environments', Environments::getInstance());
+    }
 
-	public function testGetEnvironment() {
-		$_SERVER['HTTP_HOST'] = 'localhost';
-		$this->assertEquals('local', EnvironmentsTestWrapper::getEnvironment());
+    public function testGetEnvironment()
+    {
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $this->assertEquals('local', EnvironmentsTestWrapper::getEnvironment());
 
-		Environments::tearDown();
-		Environments::$forceEnvironment = 'live';
-		Environments::init();
+        Environments::tearDown();
+        Environments::$forceEnvironment = 'live';
+        Environments::init();
 
-		$this->assertEquals('live', EnvironmentsTestWrapper::getEnvironment());
-	}
+        $this->assertEquals('live', EnvironmentsTestWrapper::getEnvironment());
+    }
 
-	/**
-	 * @expectedException Exception
-	 */
-	public function testEnvironmentNotFoundThrowsException() {
-		Environments::tearDown();
-		Environments::$forceEnvironment = 'not_existant_env';
-		Environments::init();
-	}
+    /**
+     * @expectedException Exception
+     */
+    public function testEnvironmentNotFoundThrowsException()
+    {
+        Environments::tearDown();
+        Environments::$forceEnvironment = 'not_existant_env';
+        Environments::init();
+    }
 
-	public function testHostEnvironmentDetection() {
-		Environments::tearDown();
-		EnvironmentsTestWrapper::prepareTestEnvironments();
+    public function testHostEnvironmentDetection()
+    {
+        Environments::tearDown();
+        EnvironmentsTestWrapper::prepareTestEnvironments();
 
-		$backup = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
-		$_SERVER['HTTP_HOST'] = 'test.com';
-		$this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
+        $backup = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+        $_SERVER['HTTP_HOST'] = 'test.com';
+        $this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
 
-		$_SERVER['HTTP_HOST'] = $backup;
-	}
+        $_SERVER['HTTP_HOST'] = $backup;
+    }
 
-	public function testPathEnvironmentDetection() {
-		Environments::tearDown();
-		EnvironmentsTestWrapper::prepareTestEnvironments();
-		$this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
-	}
+    public function testPathEnvironmentDetection()
+    {
+        Environments::tearDown();
+        EnvironmentsTestWrapper::prepareTestEnvironments();
+        $this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
+    }
 
-	public function testEnvironmentLoadsDbConfig() {
-		EnvironmentsTestWrapper::init();
-		$config = EnvironmentsTestWrapper::getEnvironmentDbConfig();
-		$this->assertEquals('localhost', $config['host']);
+    public function testEnvironmentLoadsDbConfig()
+    {
+        EnvironmentsTestWrapper::init();
+        $config = EnvironmentsTestWrapper::getEnvironmentDbConfig();
+        $this->assertEquals('localhost', $config['host']);
 
-		EnvironmentsTestWrapper::tearDown();
-		$config = EnvironmentsTestWrapper::getDbConfig('test');
-		$this->assertEquals('testVal', $config['testKey']);
+        EnvironmentsTestWrapper::tearDown();
+        $config = EnvironmentsTestWrapper::getDbConfig('test');
+        $this->assertEquals('testVal', $config['testKey']);
 
-		EnvironmentsTestWrapper::tearDown();
-		$config = EnvironmentsTestWrapper::getDbConfig(null);
-		$this->assertEmpty($config);
-	}
+        EnvironmentsTestWrapper::tearDown();
+        $config = EnvironmentsTestWrapper::getDbConfig(null);
+        $this->assertEmpty($config);
+    }
 
-	public function testGetCurrentEnvironment() {
-		EnvironmentsTestWrapper::setEnv('current');
-		$this->assertEquals('current', EnvironmentsTestWrapper::getCurrentEnvironment());
-	}
+    public function testGetCurrentEnvironment()
+    {
+        EnvironmentsTestWrapper::setEnv('current');
+        $this->assertEquals('current', EnvironmentsTestWrapper::getCurrentEnvironment());
+    }
 
 }

@@ -15,28 +15,29 @@ App::uses('BaseDatabaseConfig', 'Environment.Lib');
 /**
  * Database Configuration Class
  */
-class DATABASE_CONFIG extends BaseDatabaseConfig {
+class DATABASE_CONFIG extends BaseDatabaseConfig
+{
 
-	/**
-	 * These default settings are used for every DB config.
-	 * Each individual environment $dbConfig like environment.live.php will be merged with $default.
-	 *
-	 * @var array
-	 */
-	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'encoding' => 'utf8'
-	);
+    /**
+     * These default settings are used for every DB config.
+     * Each individual environment $dbConfig like environment.live.php will be merged with $default.
+     *
+     * @var array
+     */
+    public $default = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'encoding' => 'utf8'
+    );
 
-	/**
-	 * The test settings.
-	 *
-	 * @var array
-	 */
-	public $test = array(
-		'merge' => true,
-		'prefix' => 'zzz_'
-	);
+    /**
+     * The test settings.
+     *
+     * @var array
+     */
+    public $test = array(
+        'merge' => true,
+        'prefix' => 'zzz_'
+    );
 
 }

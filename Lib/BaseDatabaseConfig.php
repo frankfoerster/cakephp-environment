@@ -24,59 +24,62 @@ App::uses('Environments', 'Environment.Lib');
  * You can also define some custom settings and if `merge` is set to `true` in your test config
  * it will then merge with `default` afterwards.
  */
-class BaseDatabaseConfig {
+class BaseDatabaseConfig
+{
 
-	/**
-	 * These are the default db config settings.
-	 * All other db configs are merged with it.
-	 *
-	 * @var array
-	 */
-	protected $_defaults = array(
-		'encoding' => 'utf8',
-		'persistent' => false,
-	);
+    /**
+     * These are the default db config settings.
+     * All other db configs are merged with it.
+     *
+     * @var array
+     */
+    protected $_defaults = array(
+        'encoding' => 'utf8',
+        'persistent' => false,
+    );
 
-	/**
-	 * Holds the default db config.
-	 *
-	 * @var array
-	 */
-	public $default = array();
+    /**
+     * Holds the default db config.
+     *
+     * @var array
+     */
+    public $default = array();
 
-	/**
-	 * Switch between local and live site(s) automatically by domain
-	 * or manually by Configure::read('Environment.current').
-	 *
-	 * If there is no prefix key for the test config it will set the prefix to zzz_ to avoid
-	 * accidential collision with the live database if there is different setup.
-	 */
-	public function __construct() {
-		$this->default = array_merge($this->_defaults, $this->default);
-		$this->default = array_merge($this->default, Environments::getEnvironmentDbConfig());
+    /**
+     * Switch between local and live site(s) automatically by domain
+     * or manually by Configure::read('Environment.current').
+     *
+     * If there is no prefix key for the test config it will set the prefix to zzz_ to avoid
+     * accidential collision with the live database if there is different setup.
+     */
+    public function __construct()
+    {
+        $this->default = array_merge($this->_defaults, $this->default);
+        $this->default = array_merge($this->default, Environments::getEnvironmentDbConfig());
 
-		if (!isset($this->test)) {
-			$this->test = $this->default;
-			if (isset($this->test['prefix'])) {
-				unset($this->test['prefix']);
-			}
-		}
-		if (!isset($this->test['prefix'])) {
-			$this->test['prefix'] = 'zzz_';
-		}
-		if (!empty($this->test['merge'])) {
-			$this->test = array_merge($this->default, $this->test);
-			unset($this->test['merge']);
-		}
-	}
+        if (!isset($this->test)) {
+            $this->test = $this->default;
+            if (isset($this->test['prefix'])) {
+                unset($this->test['prefix']);
+            }
+        }
+        if (!isset($this->test['prefix'])) {
+            $this->test['prefix'] = 'zzz_';
+        }
+        if (!empty($this->test['merge'])) {
+            $this->test = array_merge($this->default, $this->test);
+            unset($this->test['merge']);
+        }
+    }
 
-	/**
-	 * Get the current db configuration.
-	 *
-	 * @return array
-	 */
-	public function current() {
-		return $this->default;
-	}
+    /**
+     * Get the current db configuration.
+     *
+     * @return array
+     */
+    public function current()
+    {
+        return $this->default;
+    }
 
 }

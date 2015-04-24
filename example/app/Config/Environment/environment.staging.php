@@ -3,19 +3,19 @@
  * Database live (production) config.
  */
 $dbConfig = array(
-	'host' => 'localhost',
-	'login' => 'username',
-	'password' => 'secret',
-	'database' => 'myapp_staging',
-	'prefix' => ''
+    'host' => 'localhost',
+    'login' => 'username',
+    'password' => 'secret',
+    'database' => 'myapp_staging',
+    'prefix' => ''
 );
 
 /**
  * Email staging config.
  */
 $emailConfig = array(
-	'transport' => 'Mail',
-	'from' => 'you@localhost'
+    'transport' => 'Mail',
+    'from' => 'you@localhost'
 );
 
 /**
@@ -25,5 +25,5 @@ $emailConfig = array(
  * Configure::write(key, value)
  */
 $configure = array(
-	'debug' => 0
+    'debug' => 0
 );
