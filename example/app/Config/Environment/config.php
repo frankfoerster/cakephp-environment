@@ -75,10 +75,25 @@ $configure = [
     /**
      * A random string used in security hashing methods.
      */
-    'Security.salt' => 'jA8sRuRxAUCIGgeoGkDI00eLVXyWkgnqysyh2EHe',
+    'Security.salt' => 'M0PolcgZSbCcLXCZ4VOuakptSxDFanUwebgui3bg0ry5bu79MI6f1JwkDz',
+
+    /**
+     * A random numeric string (digits only) used to encrypt/decrypt strings.
+     */
+    'Security.cipherSeed' => '6857524572176864175568803303783041743580347',
 
     /**
      * The Session name.
      */
-    'Session.cookie' => 'myapp'
+    'Session.cookie' => 'myapp',
+
+    /**
+     * The Cookie name.
+     */
+    'Cookie.name' => 'myappC',
+
+    /**
+     * Application wide charset encoding
+     */
+    'App.encoding' => 'UTF-8'
 ];
