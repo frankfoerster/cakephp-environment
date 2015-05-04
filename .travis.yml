@@ -27,7 +27,7 @@ install:
   - composer install --prefer-dist --no-interaction --dev
 
 before_script:
-  - mkdir config/Environment && cp -r example/config/Environment/* config/Environment
+  - mkdir config && mkdir config/Environment && cp -r example/config/Environment/* config/Environment
   - cp config/Environment/environment.local.php.default config/Environment/environment.local.php
   - sh -c "if [ '$PHPCS' = '1' ]; then composer require cakephp/cakephp-codesniffer:dev-master; fi"
   - sh -c "if [ '$COVERALLS' = '1' ]; then composer require --dev satooshi/php-coveralls:dev-master; fi"
