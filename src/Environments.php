@@ -101,6 +101,8 @@ class Environments
      * - load the global environment config
      * - determine the current environment (in order ->   self::$forceEnvironment > HOST > PATH > local)
      * - load the environment file for the determined environment
+     *
+     * @return void
      */
     public static function init()
     {
@@ -132,7 +134,7 @@ class Environments
     /**
      * Load the specified environment file.
      *
-     * @param string $envFilePath
+     * @param string $envFilePath file path to environment file
      * @return array $availableEnvironments
      */
     protected function _loadEnvironment($envFilePath)
@@ -237,6 +239,8 @@ class Environments
 
     /**
      * Reset the singleton instance.
+     *
+     * @return void
      */
     public static function tearDown()
     {
