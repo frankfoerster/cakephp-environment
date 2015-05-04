@@ -10,11 +10,31 @@
       "name": "Frank Förster",
       "homepage": "http://frankfoerster.com",
       "role": "Developer"
+    },
+    {
+      "name": "Stephan Gonder",
+      "homepage": "http://stephanaspi.com",
+      "role": "Contributor"
     }
   ],
   "require": {
     "php": ">=5.3.0",
     "composer/installers": "*"
+  },
+  "require-dev": {
+    "cakephp/cakephp": "~3.0",
+    "phpunit/phpunit": "~4.6",
+    "cakephp/cakephp-codesniffer": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "FrankFoerster\\Environment\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FrankFoerster\\Environment\\": "tests"
+    }
   },
   "extra": {
     "installer-name": "Environment"
