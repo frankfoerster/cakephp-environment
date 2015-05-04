@@ -3,7 +3,7 @@
  * Configure settings.
  *
  * Each setting will be merged via
- * @TODO: Stephan
+ * Hash::merge(Configure::read(), Hash::expand($configure))
  *
  * This is an example local development environment configuration.
  * Create a copy of this file as "environment.local.php", adjust it to your local development environment AND

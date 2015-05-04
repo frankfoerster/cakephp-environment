@@ -3,7 +3,7 @@
  * Configure settings.
  *
  * Each setting will be merged via
- * @TODO: Stephan
+ * Hash::merge(Configure::read(), Hash::expand($configure))
  */
 $configure = [
     'debug' => false,
