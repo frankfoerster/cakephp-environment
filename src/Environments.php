@@ -243,5 +243,4 @@ class Environments
         static::$_instance = null;
         static::$forceEnvironment = null;
     }
-
 }

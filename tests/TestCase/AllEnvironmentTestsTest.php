@@ -19,5 +19,4 @@ class AllEnvironmentTestsTest extends TestSuite
 
         return $suite;
     }
-
 }

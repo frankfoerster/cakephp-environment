@@ -57,7 +57,6 @@ class EnvironmentsTestWrapper extends Environments
         $instance = self::getInstance();
         $instance->_current = $env;
     }
-
 }
 
 /**
@@ -140,5 +139,4 @@ class EnvironmentsTest extends TestCase
         EnvironmentsTestWrapper::setEnv('current');
         $this->assertEquals('current', EnvironmentsTestWrapper::getCurrentEnvironment());
     }
-
 }
