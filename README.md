@@ -26,8 +26,6 @@ An environment is defined and detected either by a set of domains (e.g. www.doma
 -----------------------------
 
 1. `composer require frankfoerster/cakephp-environment`
-    Tags ~1.0 are releases for CakePHP 2.x support (master branch).
-    Tags ~3.0 are releases for CakePHP 3.x support (cake3 branch).
 2. Copy the example configuration files from `example/config/Environment` to your app `/config/Environment`
 3. Add the following lines to your `config/bootstrap.php` file
    
@@ -37,6 +35,9 @@ An environment is defined and detected either by a set of domains (e.g. www.doma
    Plugin::load('FrankFoerster/Environment');
    Environments::init();
    ```
+
+Tags ~1.0 are releases for CakePHP 2.x support (master branch).  
+Tags ~3.0 are releases for CakePHP 3.x support (cake3 branch).
 
 3. Configuration
 ----------------
