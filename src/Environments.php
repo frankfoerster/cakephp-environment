@@ -58,7 +58,7 @@ class Environments
      *
      * @var array
      */
-    protected $_environments = array();
+    protected $_environments = [];
 
     /**
      * Holds the singleton instance.
@@ -79,21 +79,21 @@ class Environments
     /**
      * Initialize an Environments singleton with all available environments.
      *
-     * array(
-     *     'live' => array(
-     *         'domain' => array(
+     * [
+     *     'live' => [
+     *         'domain' => [
      *             'www.example.com',
      *             'simsalabim.de',
      *             '...'
-     *         ),
-     *         'path' => array(
+     *         ],
+     *         'path' => [
      *             'absolute/path/on/server/1',
      *             'absolute/path/on/server/2'
      *         )
-     *     ),
-     *     'staging' => array(
+     *     ],
+     *     'staging' => [
      *         ...
-     *     ),
+     *     ],
      *     ...
      * )
      *
@@ -108,7 +108,7 @@ class Environments
         $instance->_environments = $instance->_loadEnvironment($instance->_envPath . DS . 'config.php');
 
         if (!isset($instance->_environments['local'])) {
-            $instance->_environments['local'] = array();
+            $instance->_environments['local'] = [];
         }
 
         $instance->_current = $instance->_getEnvironment();
@@ -150,7 +150,7 @@ class Environments
                 return $availableEnvironments;
             }
         }
-        return array();
+        return [];
     }
 
     /**
