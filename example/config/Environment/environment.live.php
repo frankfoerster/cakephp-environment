@@ -12,7 +12,7 @@ $configure = [
         'host' => 'localhost',
         'login' => 'username',
         'password' => 'secret',
-        'database' => 'myapp_www',
+        'database' => 'myapp_live',
         'prefix' => '',
         'quoteIdentifiers' => true,
     ],

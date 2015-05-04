@@ -10,7 +10,9 @@
  * @link https://github.com/frankfoerster/cakephp-environment CakePHP Environment Plugin
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
-App::uses('Environments', 'Environment.Lib');
+use Cake\Core\Configure;
+use Cake\TestSuite\TestCase;
+use FrankFoerster\Environment\Environments;
 
 /**
  * Class EnvironmentsTestWrapper
@@ -35,31 +37,19 @@ class EnvironmentsTestWrapper extends Environments
     public static function prepareTestEnvironments()
     {
         $instance = self::getInstance();
-        $instance->_environments = array(
-            'test' => array(
+        $instance->_environments = [
+            'test' => [
                 'key' => 'val'
-            ),
-            'testing' => array(
-                'domain' => array(
+            ],
+            'testing' => [
+                'domain' => [
                     'test.com'
-                ),
-                'path' => array(
+                ],
+                'path' => [
                     APP
-                )
-            )
-        );
-    }
-
-    public static function getDbConfig($env)
-    {
-        self::prepareTestEnvironments();
-        self::$forceEnvironment = $env;
-        $instance = self::getInstance();
-        $instance->_current = $env;
-        $instance->_dbConfig[$env] = array(
-            'testKey' => 'testVal'
-        );
-        return self::getEnvironmentDbConfig();
+                ]
+            ]
+        ];
     }
 
     public static function setEnv($env)
@@ -73,30 +63,28 @@ class EnvironmentsTestWrapper extends Environments
 /**
  * Class EnvironmentsTest
  */
-class EnvironmentsTest extends CakeTestCase
+class EnvironmentsTest extends TestCase
 {
 
     public function setUp()
     {
-
         parent::setUp();
     }
 
     public function tearDown()
     {
         Environments::tearDown();
-
         parent::tearDown();
     }
 
     public function testConstruct()
     {
-        $this->assertEquals(APP . 'Config' . DS . 'Environment', EnvironmentsTestWrapper::getEnvPath());
+        $this->assertEquals(ROOT . DS . 'config' . DS . 'Environment', EnvironmentsTestWrapper::getEnvPath());
     }
 
     public function testGetInstance()
     {
-        $this->assertInstanceOf('Environments', Environments::getInstance());
+        $this->assertInstanceOf('\FrankFoerster\Environment\Environments', Environments::getInstance());
     }
 
     public function testGetEnvironment()
@@ -140,19 +128,11 @@ class EnvironmentsTest extends CakeTestCase
         $this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
     }
 
-    public function testEnvironmentLoadsDbConfig()
+    public function testEnvironmentLoadsCorrectConfigureSettings()
     {
         EnvironmentsTestWrapper::init();
-        $config = EnvironmentsTestWrapper::getEnvironmentDbConfig();
-        $this->assertEquals('localhost', $config['host']);
-
-        EnvironmentsTestWrapper::tearDown();
-        $config = EnvironmentsTestWrapper::getDbConfig('test');
-        $this->assertEquals('testVal', $config['testKey']);
-
-        EnvironmentsTestWrapper::tearDown();
-        $config = EnvironmentsTestWrapper::getDbConfig(null);
-        $this->assertEmpty($config);
+        $db = Configure::read('Datasources.default.database');
+        $this->assertEquals('myapp', $db);
     }
 
     public function testGetCurrentEnvironment()
