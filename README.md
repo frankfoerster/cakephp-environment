@@ -25,7 +25,7 @@ An environment is defined and detected either by a set of domains (e.g. www.doma
 2. Install and use the plugin
 -----------------------------
 
-1. `composer install frankfoerster/cakephp-environment`
+1. `composer require frankfoerster/cakephp-environment`
     Tags ~1.0 are releases for CakePHP 2.x support (master branch).
     Tags ~3.0 are releases for CakePHP 3.x support (cake3 branch).
 2. Copy the example configuration files from `example/config/Environment` to your app `/config/Environment`
