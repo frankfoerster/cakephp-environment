@@ -10,6 +10,11 @@
       "name": "Frank Förster",
       "homepage": "http://frankfoerster.com",
       "role": "Developer"
+    },
+    {
+      "name": "Stephan Gonder",
+      "homepage": "http://stephanaspi.com",
+      "role": "Contributor"
     }
   ],
   "require": {
