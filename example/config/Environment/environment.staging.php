@@ -10,7 +10,7 @@ $configure = [
 
     'Datasources.default' => [
         'host' => 'localhost',
-        'login' => 'username',
+        'username' => 'username',
         'password' => 'secret',
         'database' => 'myapp_staging',
         'prefix' => '',
@@ -19,7 +19,7 @@ $configure = [
 
     'Datasources.test' => [
         'host' => 'localhost',
-        'login' => 'username',
+        'username' => 'username',
         'password' => 'secret',
         'database' => 'myapp_staging_test',
         'prefix' => '',
