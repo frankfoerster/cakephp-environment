@@ -128,6 +128,7 @@ class Environments
     public static function getCurrentEnvironment()
     {
         $instance = self::getInstance();
+
         return $instance->_current;
     }
 
@@ -152,6 +153,7 @@ class Environments
                 return $availableEnvironments;
             }
         }
+
         return [];
     }
 
@@ -221,6 +223,7 @@ class Environments
         if (substr($path, -1, 1) !== DS) {
             $path .= DS;
         }
+
         return $path;
     }
 
@@ -234,6 +237,7 @@ class Environments
         if (static::$_instance === null) {
             static::$_instance = new Environments();
         }
+
         return static::$_instance;
     }
 

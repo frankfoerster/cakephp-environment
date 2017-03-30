@@ -25,12 +25,14 @@ class EnvironmentsTestWrapper extends Environments
     public static function getEnvPath()
     {
         $instance = self::getInstance();
+
         return $instance->_envPath;
     }
 
     public static function getEnvironment()
     {
         $instance = self::getInstance();
+
         return $instance->_getEnvironment();
     }
 
