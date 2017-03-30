@@ -12,7 +12,7 @@ Manage multiple environments in your CakePHP application that differ in, e.g.:
 Requirements
 ------------
 
-- PHP 5.4.16+
+- PHP 5.6.0+
 - CakePHP 3.x
 
 1. What it does
