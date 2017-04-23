@@ -122,6 +122,21 @@ class EnvironmentsTest extends TestCase
         $_SERVER['HTTP_HOST'] = $backup;
     }
 
+    public function testServerNameEnvironmentDetection()
+    {
+        Environments::tearDown();
+        EnvironmentsTestWrapper::prepareTestEnvironments();
+
+        $hostBackup = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+        $serverNameBackup = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost';
+        $_SERVER['HTTP_HOST'] = null;
+        $_SERVER['SERVER_NAME'] = 'test.com';
+        $this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
+
+        $_SERVER['HTTP_HOST'] = $hostBackup;
+        $_SERVER['SERVER_NAME'] = $serverNameBackup;
+    }
+
     public function testPathEnvironmentDetection()
     {
         Environments::tearDown();
