@@ -1,7 +1,10 @@
-CakePHP 3.x Environment Plugin
-==============================
+# CakePHP 3.x Environment Plugin
 
-[![Build Status](https://travis-ci.org/frankfoerster/cakephp-environment.svg?branch=cake3)](https://travis-ci.org/frankfoerster/cakephp-environment)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/travis/frankfoerster/cakephp-environment/cake3.svg?style=flat-square)](https://travis-ci.org/frankfoerster/cakephp-environment)
+[![Coverage Status](https://img.shields.io/coveralls/frankfoerster/cakephp-environment/cake3.svg?style=flat-square)](https://coveralls.io/github/frankfoerster/cakephp-environment)
+[![Total Downloads](https://img.shields.io/packagist/dt/frankfoerster/cakephp-environment.svg?style=flat-square)](https://packagist.org/packages/frankfoerster/cakephp-environment)
+[![Latest Stable Version](https://img.shields.io/packagist/v/frankfoerster/cakephp-environment.svg?style=flat-square&label=stable)](https://packagist.org/packages/frankfoerster/cakephp-environment)
 
 Manage multiple environments in your CakePHP application that differ in, e.g.:
 
@@ -9,38 +12,41 @@ Manage multiple environments in your CakePHP application that differ in, e.g.:
 - configuration settings (Configure)
 - custom feature flags
 
-Requirements
-------------
+## Requirements
 
 - PHP 5.6.0+
 - CakePHP 3.x
 
-1. What it does
----------------
+## What it does
 
 The Environment plugin hooks into your bootstrap process to initialize the database configuration, configuration parameters and additional custom logic for different environments.
 
 An environment is defined and detected either by a set of domains (e.g. www.domain.com, domain.com, domain.net) or optionally by the absolute app path on a server (cli).
 
-2. Install and use the plugin
------------------------------
+## Install and use the plugin
 
-1. `composer require frankfoerster/cakephp-environment`
-2. Copy the example configuration files from `example/config/Environment` to your app `/config/Environment`
-3. Add the following lines to your `config/bootstrap.php` file
-   
-   ```php
-   use FrankFoerster\Environment\Environments;
-   
-   Plugin::load('FrankFoerster/Environment');
-   Environments::init();
-   ```
+1.  `composer require frankfoerster/cakephp-environment`
+2.  Copy the example configuration files from `example/config/Environment` to your app `/config/Environment`
+3.  Add the following lines to your `config/bootstrap.php` file
+    
+    ```php
+    use FrankFoerster\Environment\Environments;
+    
+    Plugin::load('FrankFoerster/Environment');
+    Environments::init();
+    ```
+    
+    before
+    ```php
+    ConnectionManager::config(Configure::consume('Datasources'));
+    ```
+
+    If you want to setup environment specific settings for any "consumed" configuration option, then make sure your environments are initialized  **before** the corresponding ``Configure::consume('...')`` call.
 
 Tags ~1.0 are releases for CakePHP 2.x support (master branch).  
 Tags ~3.0 are releases for CakePHP 3.x support (cake3 branch).
 
-3. Configuration
-----------------
+## Configuration
 
 The configuration of your environments is managed with multiple files.
 
