@@ -12,7 +12,7 @@ class AllEnvironmentTestsTest extends TestSuite
      */
     public static function suite()
     {
-        $suite = new TestSuite('All Environment Tests');
+        $suite = new TestSuite();
 
         $path = dirname(__FILE__) . DS;
         $suite->addTestDirectoryRecursive($path);

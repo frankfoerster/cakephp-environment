@@ -13,5 +13,7 @@
 require dirname(__DIR__) . '/vendor/autoload.php';
 // include paths from CakePHP
 require dirname(__DIR__) . '/tests/paths.php';
+// include cakephp basics
+require dirname(__DIR__) . '/vendor/cakephp/cakephp/src/basics.php';
 // disable cache to avoid errors on tests
 \Cake\Cache\Cache::disable();
