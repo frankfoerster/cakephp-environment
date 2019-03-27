@@ -32,13 +32,12 @@ An environment is defined and detected either by a set of domains (e.g. www.doma
     ```php
     use FrankFoerster\Environment\Environments;
     
-    Plugin::load('FrankFoerster/Environment');
     Environments::init();
     ```
     
     before
     ```php
-    ConnectionManager::config(Configure::consume('Datasources'));
+    ConnectionManager::setConfig(Configure::consume('Datasources'));
     ```
 
     If you want to setup environment specific settings for any "consumed" configuration option, then make sure your environments are initialized  **before** the corresponding ``Configure::consume('...')`` call.
