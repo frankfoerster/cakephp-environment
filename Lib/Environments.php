@@ -47,6 +47,13 @@ class Environments {
 	 */
 	protected $_dbConfig = array();
 
+    /**
+     * Holds a single or multiple external datasource for save audits in storage different from default
+     *
+     * @var array
+     */
+    protected $_externalDSConfig = array();
+
 	/**
 	 * Holds a single or multiple email configs indexed by their
 	 * environment name.
@@ -139,6 +146,19 @@ class Environments {
 		return $instance->_dbConfig[$instance->_current];
 	}
 
+    /**
+     * Get the external datasource config for the current environment.
+     *
+     * @return array
+     */
+    public static function getEnvironmentExternalDSConfig() {
+        $instance = self::getInstance();
+        if ($instance->_current === null || !isset($instance->_externalDSConfig[$instance->_current])) {
+            return array();
+        }
+        return $instance->_externalDSConfig[$instance->_current];
+    }
+
 	/**
 	 * Get the default email config for the current environment.
 	 *
@@ -184,6 +204,10 @@ class Environments {
 			if (isset($emailConfig) && is_array($emailConfig) && !empty($emailConfig)) {
 				$this->_emailConfig[$this->_current] = $emailConfig;
 			}
+
+            if (isset($externalDSConfig) && is_array($externalDSConfig) && !empty($externalDSConfig)) {
+                $this->_externalDSConfig[$this->_current] = $externalDSConfig;
+            }
 
 			if (isset($availableEnvironments) && empty($this->_environments)) {
 				return $availableEnvironments;

@@ -44,6 +44,13 @@ class BaseDatabaseConfig {
 	 */
 	public $default = array();
 
+    /**
+     * Holds the external datasource config.
+     *
+     * @var array
+     */
+    public $externalDataSource = array();
+
 	/**
 	 * Switch between local and live site(s) automatically by domain
 	 * or manually by Configure::read('Environment.current').
@@ -54,6 +61,10 @@ class BaseDatabaseConfig {
 	public function __construct() {
 		$this->default = array_merge($this->_defaults, $this->default);
 		$this->default = array_merge($this->default, Environments::getEnvironmentDbConfig());
+
+        $this->externalDataSource = count(Environments::getEnvironmentExternalDSConfig())
+            ? array_merge($this->externalDataSource, Environments::getEnvironmentExternalDSConfig())
+            : array_merge($this->default, Environments::getEnvironmentDbConfig());
 
 		if (!isset($this->test)) {
 			$this->test = $this->default;
