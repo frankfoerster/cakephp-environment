@@ -6,60 +6,17 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright Copyright (c) Frank Förster (http://frankfoerster.com)
- * @author Frank Förster <frank at frankfoerster.com>
+ * @author Frank Förster <github at frankfoerster.com>
  * @link https://github.com/frankfoerster/cakephp-environment CakePHP Environment Plugin
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
+namespace FrankFoerster\Environment\Test\TestCase;
+
 use Cake\Core\Configure;
+use Cake\Core\Exception\CakeException;
 use Cake\TestSuite\TestCase;
 use FrankFoerster\Environment\Environments;
-
-/**
- * Class EnvironmentsTestWrapper
- *
- * Wraps the Environments Lib functionality for testing purposes.
- */
-class EnvironmentsTestWrapper extends Environments
-{
-
-    public static function getEnvPath()
-    {
-        $instance = self::getInstance();
-
-        return $instance->_envPath;
-    }
-
-    public static function getEnvironment()
-    {
-        $instance = self::getInstance();
-
-        return $instance->_getEnvironment();
-    }
-
-    public static function prepareTestEnvironments()
-    {
-        $instance = self::getInstance();
-        $instance->_environments = [
-            'test' => [
-                'key' => 'val'
-            ],
-            'testing' => [
-                'domain' => [
-                    'test.com'
-                ],
-                'path' => [
-                    APP
-                ]
-            ]
-        ];
-    }
-
-    public static function setEnv($env)
-    {
-        $instance = self::getInstance();
-        $instance->_current = $env;
-    }
-}
+use FrankFoerster\Environment\Test\Util\EnvironmentsTestWrapper;
 
 /**
  * Class EnvironmentsTest
@@ -67,28 +24,28 @@ class EnvironmentsTestWrapper extends Environments
 class EnvironmentsTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Environments::tearDown();
         parent::tearDown();
     }
 
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $this->assertEquals(ROOT . DS . 'config' . DS . 'Environment', EnvironmentsTestWrapper::getEnvPath());
     }
 
-    public function testGetInstance()
+    public function testGetInstance(): void
     {
         $this->assertInstanceOf('\FrankFoerster\Environment\Environments', Environments::getInstance());
     }
 
-    public function testGetEnvironment()
+    public function testGetEnvironment(): void
     {
         $_SERVER['HTTP_HOST'] = 'localhost';
         $this->assertEquals('local', EnvironmentsTestWrapper::getEnvironment());
@@ -100,35 +57,33 @@ class EnvironmentsTest extends TestCase
         $this->assertEquals('live', EnvironmentsTestWrapper::getEnvironment());
     }
 
-    /**
-     * @expectedException Exception
-     */
-    public function testEnvironmentNotFoundThrowsException()
+    public function testEnvironmentNotFoundThrowsException(): void
     {
+        $this->expectException(CakeException::class);
         Environments::tearDown();
         Environments::$forceEnvironment = 'not_existant_env';
         Environments::init();
     }
 
-    public function testHostEnvironmentDetection()
+    public function testHostEnvironmentDetection(): void
     {
         Environments::tearDown();
         EnvironmentsTestWrapper::prepareTestEnvironments();
 
-        $backup = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+        $backup = $_SERVER['HTTP_HOST'] ?? 'localhost';
         $_SERVER['HTTP_HOST'] = 'test.com';
         $this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
 
         $_SERVER['HTTP_HOST'] = $backup;
     }
 
-    public function testServerNameEnvironmentDetection()
+    public function testServerNameEnvironmentDetection(): void
     {
         Environments::tearDown();
         EnvironmentsTestWrapper::prepareTestEnvironments();
 
-        $hostBackup = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
-        $serverNameBackup = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost';
+        $hostBackup = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $serverNameBackup = $_SERVER['SERVER_NAME'] ?? 'localhost';
         $_SERVER['HTTP_HOST'] = null;
         $_SERVER['SERVER_NAME'] = 'test.com';
         $this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
@@ -137,21 +92,21 @@ class EnvironmentsTest extends TestCase
         $_SERVER['SERVER_NAME'] = $serverNameBackup;
     }
 
-    public function testPathEnvironmentDetection()
+    public function testPathEnvironmentDetection(): void
     {
         Environments::tearDown();
         EnvironmentsTestWrapper::prepareTestEnvironments();
         $this->assertEquals('testing', EnvironmentsTestWrapper::getEnvironment());
     }
 
-    public function testEnvironmentLoadsCorrectConfigureSettings()
+    public function testEnvironmentLoadsCorrectConfigureSettings(): void
     {
         EnvironmentsTestWrapper::init();
         $db = Configure::read('Datasources.default.database');
         $this->assertEquals('myapp', $db);
     }
 
-    public function testGetCurrentEnvironment()
+    public function testGetCurrentEnvironment(): void
     {
         EnvironmentsTestWrapper::setEnv('current');
         $this->assertEquals('current', EnvironmentsTestWrapper::getCurrentEnvironment());

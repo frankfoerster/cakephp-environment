@@ -1,4 +1,4 @@
-# CakePHP 3.x Environment Plugin
+# CakePHP 5.x Environment Plugin
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/frankfoerster/cakephp-environment/cake3.svg?style=flat-square)](https://travis-ci.org/frankfoerster/cakephp-environment)
@@ -14,8 +14,8 @@ Manage multiple environments in your CakePHP application that differ in, e.g.:
 
 ## Requirements
 
-- PHP 5.6.0+
-- CakePHP 3.x
+- PHP 8.3.0+
+- CakePHP 5.x
 
 ## What it does
 
@@ -42,8 +42,10 @@ An environment is defined and detected either by a set of domains (e.g. www.doma
 
     If you want to setup environment specific settings for any "consumed" configuration option, then make sure your environments are initialized  **before** the corresponding ``Configure::consume('...')`` call.
 
-Tags ~1.0 are releases for CakePHP 2.x support (master branch).  
+Tags ~1.0 are releases for CakePHP 2.x support (cake2 branch).  
 Tags ~3.0 are releases for CakePHP 3.x support (cake3 branch).
+Tags ~4.0 are releases for CakePHP 4.x support (cake4 branch).
+Tags ~5.0 are releases for CakePHP 5.x support (master branch).
 
 ## Configuration
 

@@ -14,7 +14,7 @@
 namespace FrankFoerster\Environment;
 
 use Cake\Core\Configure;
-use Cake\Core\Exception\Exception;
+use Cake\Core\Exception\CakeException;
 use Cake\Utility\Hash;
 
 /**
@@ -161,7 +161,7 @@ class Environments
      * Detect the environment and return its name.
      *
      * @return string
-     * @throws Exception
+     * @throws CakeException
      */
     protected function _getEnvironment()
     {
@@ -170,7 +170,7 @@ class Environments
         // Check if the environment has been manually set (forced).
         if ($environment !== null) {
             if (!isset($this->_environments[$environment])) {
-                throw new Exception('Environment configuration for "' . $environment . '" could not be found.');
+                throw new CakeException('Environment configuration for "' . $environment . '" could not be found.');
             }
         }
         // If no manual setting is available, use "host:port" to decide which config to use.
