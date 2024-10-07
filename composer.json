@@ -21,7 +21,7 @@
     "test": "phpunit"
   },
   "require": {
-    "php": ">=8.3.0"
+    "php": ">=8.2.0"
   },
   "require-dev": {
     "cakephp/cakephp": "^5.0.5",
